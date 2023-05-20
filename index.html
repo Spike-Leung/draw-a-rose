@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="theme-color" content="#FFF" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+        <title>520 节日快乐~</title>
+        <meta name="title" content="520 节日快乐" />
+        <!-- <link type="text/css" rel="stylesheet" href="./style.css"> -->
+
+        <style>
+         :root {
+             --dark-green: #066406;
+             --light-green: #338f37;
+             --light-pink: #dc4c70;
+             --medium-pink: #d52d58;
+             --dark-pink: #ca2850;
+             --light-brown: #ede3d2;
+             --dark-brown: #73592e;
+         }
+         @font-face {
+             font-family: 'JetBrains Mono';
+             src: url('https://gw.alipayobjects.com/os/k/app/JetBrainsMono-Regular.ttf') format('truetype');
+         }
+
+         * {
+             font-family: JetBrains Mono, SF Mono, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+         }
+
+         * {
+             margin: 0;
+             padding: 0;
+         }
+
+         * {
+             box-sizing: border-box;
+         }
+
+         *::after {
+             box-sizing: border-box;
+         }
+
+         *::before {
+             box-sizing: border-box;
+         }
+
+         body {
+             height: 100vh;
+             color: var(--light-pink);
+             background: #333;
+             margin: 0;
+             font-size: 14px;
+             line-height: 1.4;
+         }
+
+
+         pre em {
+             font-style: normal;
+         }
+
+         .selector,
+         .selector .key {
+             color: #f694ff;
+         }
+
+         .key {
+             color: #edecee;
+         }
+
+         .comment {
+             color: var(--light-pink);
+         }
+
+         .value {
+             color: #ffca85;
+         }
+
+         #wrapper {
+             display: flex;
+             flex-direction: column;
+             justify-content: space-between;
+             align-items: center;
+         }
+
+         .rose {
+             margin: auto;
+             height: 400px;
+             width: 200px;
+             position: relative;
+         }
+
+         .dead-petals > div {
+             position: absolute;
+             height: 10px;
+             width: 20px;
+             top: 25%;
+             border-radius: 0 20px;
+             transition-timing-function: ease-out;
+         }
+
+         @keyframes rotate-petal-1 {
+             0% {
+                 transform: rotate(-45deg) translateY(0%);
+                 top: 20%;
+             }
+             50% {
+                 transform: rotate(45deg) translateY(-50%);
+                 top: 50%;
+             }
+             100% {
+                 transform: rotate(-45deg) translateY(0%);
+                 top: 90%;
+             }
+         }
+
+         @keyframes rotate-petal-2 {
+             0% {
+                 transform: rotate(-20deg) translateY(0%);
+                 top: 20%;
+             }
+             50% {
+                 transform: rotate(20deg) translateY(-50%);
+                 top: 50%;
+             }
+             100% {
+                 transform: rotate(-20deg) translateY(0%);
+                 top: 90%;
+             }
+
+         }
+        </style>
+    </head>
+    <body>
+        <script>
+         let styles = `\
+/*
+ * Hello, 小妖怪！
+ * 今天是 520 呢，有收到玫瑰吗？
+ * 我在面包店收到了一朵，哈哈
+ * 如果你没有收到，那我给你画一朵!
+ */
+
+/* 先搞一个写代码地方 */
+pre {
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  box-sizing: border-box;
+  padding: 24px 16px;
+  margin-top: 0;
+  overflow-y: auto;
+  transition: all 500ms;
+}
+
+/* 为了更好地画玫瑰，我们把代码移到下面来 */
+pre {
+  top: 60vh;
+  height: 40vh;
+}
+
+.container {
+  width: 100%;
+  height: 60vh;
+  position: absolute;
+  top: 0;
+  margin: auto;
+  background: var(--light-brown);
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+/* 让我们先来画一根笔直的，绿色的花茎！*/
+.stem {
+  position: absolute;
+  height: 0;
+  width: 6px;
+  background: var(--dark-green);
+  bottom: 10%;
+  left: 50%;
+  margin-left: -3px;
+  border-radius: 0 0 3px 3px;
+  transition: height 1s;
+}
+
+.stem {
+  height: 200px;
+}
+
+/* 所谓带刺的玫瑰，怎么能不画点刺呢 ？*/
+.thorns > div {
+  width: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  position: absolute;
+  transition: all 0.2s;
+}
+
+/* 一个刺 */
+.thorns > div:first-child {
+  position: absolute;
+  left: 44%;
+  top: 50%;
+  border-right: 10px solid var(--dark-green);
+}
+
+/* 两个刺 */
+.thorns > div:nth-child(2) {
+  right: 44%;
+  top: 60%;
+  border-left: 10px solid var(--dark-green);
+}
+
+/* 三个刺，真疼！*/
+.thorns > div:nth-child(3) {
+  left: 44%;
+  top: 70%;
+  border-right: 10px solid var(--dark-green);
+}
+
+/* 接下来，让我们画叶子吧~ lalala~ */
+.leaves > div {
+  position: absolute;
+  height: 60px;
+  width: 35px;
+}
+
+/* 我要画第一片叶子啦 */
+.leaves > div:first-child {
+  top: 55%;
+  left: 28%;
+  border-radius: 0 30px 0 30px;
+  transform: rotate(-20deg);
+  transition: background 1s, box-shadow 1s 1s;
+  background: var(--dark-green);
+  box-shadow: inset 5px 5px var(--light-green);
+}
+
+/* 再画第二片叶子 */
+.leaves > div:nth-child(2) {
+  border-radius: 30px 0 30px 0;
+  transform: rotate(20deg);
+  top: 45%;
+  right: 28%;
+  transition: background 1s, box-shadow 1s 1s;
+  background: var(--dark-green);
+  box-shadow: inset -5px 5px var(--light-green);
+}
+
+/*
+ * 好啦！终于可以画花啦！嘿嘿嘿！
+ * 先把中间的花芯画好~
+ */
+.petals > div:first-child {
+  top: 15%;
+  left: 50%;
+  margin-left: -25px;
+  position: absolute;
+  height: 100px;
+  width: 50px;
+  border-radius: 10px 10px 20px 20px;
+  transition: background 1s;
+  background: var(--light-pink);
+}
+
+.petals > div:not(:first-child) {
+  position: absolute;
+  height: 100px;
+  width: 40px;
+}
+
+/* 接下来画第二瓣花瓣 */
+.petals > div:nth-child(2) {
+  top: 15%;
+  left: 30%;
+  transform-origin: bottom right;
+  border-radius: 0 35px 0 35px;
+  transition: background 1s, transform 1s 1s;
+  background: var(--medium-pink);
+  transform: rotate(-6deg);
+}
+
+/* 然后是第三瓣 */
+.petals > div:nth-child(3) {
+  top: 15%;
+  right: 30%;
+  transform-origin: bottom left;
+  border-radius: 35px 0 35px 0;
+  transition: background 1s, transform 1s 1s;
+  background: var(--medium-pink);
+  transform: rotate(6deg);
+}
+
+/* 第四瓣花瓣 */
+.petals > div:nth-child(4) {
+  top: 15%;
+  left: 30%;
+  transform: rotate(-18deg);
+  transform-origin: bottom right;
+  border-radius: 0 35px 0 35px;
+  transition: background 1s, transform 1s 1s;
+  background: var(--dark-pink);
+}
+
+/* 还有最后一瓣, 马上就要画好啦 */
+.petals > div:nth-child(5) {
+  top: 15%;
+  right: 30%;
+  transform: rotate(18deg);
+  transform-origin: bottom left;
+  border-radius: 35px 0 35px 0;
+  transition: background 1s, transform 1s 1s;
+  background: var(--dark-pink);
+}
+
+/*
+ * 古人云：花开堪折直须折，你不折它就要掉光啦
+ */
+.dead-petals > div:first-child {
+  transition: transform 8s, top 8s;
+  left: 35%;
+  top: 90%;
+  transform: rotate(-45deg);
+  background: var(--medium-pink);
+}
+
+.dead-petals > div:nth-child(2) {
+  transition: transform 8s 2s, top 8s 2s;
+  left: 50%;
+  top: 90%;
+  transform: rotate(-20deg);
+  background: var(--dark-pink);
+}
+
+.dead-petals > div:first-child {
+  animation: rotate-petal-1 10s linear infinite;
+  left: 35%;
+  background: var(--medium-pink);
+}
+
+.dead-petals > div:nth-child(2) {
+  animation: rotate-petal-2 10s linear infinite;
+  left: 50%;
+  background: var(--dark-pink);
+}
+
+/*
+ * 噔噔！就是这样，画好啦！
+ * 不知道你喜不喜欢，hhh
+ * 祝你 520 快乐!
+ * 要开心呀！
+ */
+
+         `;
+
+         const getStyleHtml = function () {
+             return document.getElementById('style-text').innerHTML;
+         };
+
+         let openComment = false;
+
+         const writeStyleChar = function (which) {
+             if (which === '/' && !openComment) {
+                 openComment = true;
+                 styles = getStyleHtml() + which;
+             } else if (which === '/' && openComment) {
+                 openComment = false;
+                 styles = getStyleHtml().replace(
+                     /(\/[^\/]*\*)$/,
+                     '<em class="comment">$1/</em>',
+                 );
+             } else if (which === ':') {
+                 styles = getStyleHtml().replace(
+                     /([a-zA-Z- ^\n]*)$/,
+                     '<em class="key">$1</em>:',
+                 );
+             } else if (which === ';') {
+                 styles = getStyleHtml().replace(
+                     /([^:]*)$/,
+                     '<em class="value">$1</em>;',
+                 );
+             } else if (which === '{') {
+                 styles = getStyleHtml().replace(
+                     /(.*)$/,
+                     '<em class="selector">$1</em>{',
+                 );
+             } else {
+                 styles = getStyleHtml() + which;
+             }
+             document.getElementById('style-text').innerHTML = styles;
+             return document
+                 .getElementById('style-tag')
+                 .insertAdjacentHTML('beforeend', which);
+         };
+
+         const writeStyles = function (message, index, interval) {
+             if (index < message.length) {
+                 const pre = document.getElementById('style-text');
+                 pre.scrollTop = pre.scrollHeight;
+                 writeStyleChar(message[index++]);
+                 return setTimeout(
+                     () => writeStyles(message, index, interval),
+                     interval,
+                 );
+             }
+         };
+         document.body.insertAdjacentHTML(
+             'beforeend',
+             `\<style id="style-tag"></style>
+ <div id="wrapper">
+  <div class="container">
+      <div class="rose">
+          <div class="stem"></div>
+          <div class="thorns">
+              <div></div>
+              <div></div>
+              <div></div>
+          </div>
+          <div class="leaves">
+              <div></div>
+              <div></div>
+          </div>
+          <div class="dead-petals">
+              <div></div>
+              <div></div>
+          </div>
+          <div class="petals">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+          </div>
+          <div class="dead-petal"></div>
+          <div class="shine"></div>
+      </div>
+  </div>
+   <pre id="style-text"></pre>\
+             `,
+         );
+         writeStyles(styles, 0, 24);
+        </script>
+    </body>
+</html>
