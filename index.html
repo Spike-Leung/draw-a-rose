@@ -20,6 +20,8 @@
              --dark-brown: #73592e;
              --text-code: #edecee;
              --bg-code: #333;
+             --rose-height: 350px;
+             --rose-width: 200px;
          }
          @font-face {
              font-family: 'JetBrains Mono';
@@ -123,6 +125,8 @@ pre {
    position: absolute;
    top: 0;
    display: flex;
+   justify-content: center;
+   align-items: center;
    width: 100%;
    height: 60vh;
    margin: auto;
@@ -132,10 +136,9 @@ pre {
 
 .rose {
    margin: auto;
-   height: 400px;
+   height: var(--rose-height);
    width: 200px;
    position: relative;
-
 }
 
 /* 让我们先来画一根笔直的，绿色的花茎！*/
@@ -174,14 +177,14 @@ pre {
 /* 两个刺 */
 .thorns > div:nth-child(2) {
    left: 51%;
-   top: 60%;
+   top: 62%;
    border-left: 10px solid var(--dark-green);
 }
 
 /* 三个刺，真疼！*/
 .thorns > div:nth-child(3) {
    left: 44%;
-   top: 70%;
+   top: 75%;
    border-right: 10px solid var(--dark-green);
 }
 
@@ -194,7 +197,7 @@ pre {
 
 /* 我要画第一片叶子啦 */
 .leaves > div:first-child {
-   top: 55%;
+   top: 58%;
    left: 28%;
    border-radius: 0 30px 0 30px;
    transform: rotate(-20deg);
@@ -295,6 +298,25 @@ pre {
    background: var(--dark-pink);
 }
 
+/* 加个罩子保护起来 */
+.glass {
+   position: absolute;
+   transition: opacity 1s;
+   opacity: 0;
+   height: var(--rose-height);
+   width: var(--rose-width);
+   padding: 0 40px;
+   background: rgba(255, 250, 250, 0);
+   box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.2);
+   backdrop-filter: blur(2.8px);
+   -webkit-backdrop-filter: blur(2.8px);
+   border-bottom: 0;
+   border-radius: 5px;
+   border-top-right-radius: 40%;
+   border-top-left-radius: 40%;
+   opacity: 1;
+}
+
 /*
 * 噔噔！就是这样，画好啦！
 * 不知道你喜不喜欢，hhh
@@ -307,6 +329,7 @@ pre {
          let template = `
 \<style id="style-tag"></style>
   <div class="container">
+      <div class="glass"></div>
       <div class="rose">
           <div class="stem"></div>
           <div class="thorns">
@@ -390,9 +413,8 @@ pre {
          }
 
          document.body.insertAdjacentHTML('beforeend', template);
-         /* writeStyles(styles, 0, 5);
-          */
-         writeAllStyles();
+         writeStyles(styles, 0, 24);
+         /*          writeAllStyles(); */
         </script>
     </body>
 </html>
